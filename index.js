@@ -380,6 +380,61 @@ function gravar(requisicao,resp){
         });
         resp.redirect('/listarAdc');
     }
+    else{
+        resp.write('<!DOCTYPE html>');
+        resp.write('<html>');
+        resp.write('<head>');
+        resp.write('<meta charset="utf-8">');
+        resp.write('<title>Listar</title>');
+        resp.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">');
+        resp.write('</head>');
+        resp.write('<body>');
+        resp.write("<h1 class='text-center mt-3'>Cadastrar desejo</h1>");
+        resp.write('<br>');
+        resp.write('<br>');
+        resp.write('<div class="container">');
+        resp.write(`<form method="POST" action="/gravar" class=" border row g-2">`);
+        resp.write('<div>');
+        resp.write('<label for="Interessados" class="form-label">Interessados</label><br>');
+        resp.write('<select class="form-select" id="interessadoNome" name="interessadoNome">');
+        resp.write('<option selected disabled>Opções</option>');
+        for(let i = 0; i<lista.length; i++){
+            resp.write(`<option>${lista[i].nome}</option>`);
+        }
+        resp.write('</select>');
+        resp.write('</div>');
+        resp.write('<div>');
+        resp.write('<label for="Pets" class="form-label">Pets</label><br>');
+        resp.write('<select class="form-select" id="petnome" name="petnome">');
+        resp.write('<option selected disabled>Opções</option>');
+        for(let i = 0; i<listaP.length; i++){
+            resp.write(`<option>${listaP[i].nomePet}</option>`);
+        }
+        resp.write(`<div m-2 class="alert alert-danger" role="alert">
+            Por favor, informe o nome!
+        </div>`);
+        resp.write('</select>');
+        resp.write('</div>');
+        resp.write(`<div class="text-center">
+                <div class="col-12 mb-3 mt-3">
+                    <button type="submit" class="btn btn-primary">Adotar</button><br><br>
+                    <a href="/listarAdc">Lista Adoção</a>
+                </div>
+                </div>`);
+        resp.write('</form>');
+        resp.write('</div>');
+        if (requisicao.cookies.dataUltimoAcesso){
+            resp.write('<p>');
+            resp.write('Seu último acesso foi em ' + requisicao.cookies.dataUltimoAcesso);
+            resp.write('</p>');
+        }
+        resp.write('</body>');
+        resp.write(`<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>`); 
+        resp.write('</html>'); 
+        resp.end();
+    }
 } 
 
 app.use ('/listarAdc', usuarioEstaAutenticado, (requisicao, resp)=>{
